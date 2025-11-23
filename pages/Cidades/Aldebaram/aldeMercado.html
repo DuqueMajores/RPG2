@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado de Aldebaram</title>
+    <link rel="stylesheet" href="../../../src/css/imagens.css">
+</head>
+
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="/src/video/aldeMercado.mp4" type="video/mp4">
+    </video>
+
+    <div id="nomeEstacao">
+
+        <h3>Mercado de Aldebaram</h3>
+
+        <button class="btn-madeira" onclick="parent.carregar('Cidades/Aldebaram/aldePraca.html')">
+            Voltar à Praça
+        </button>
+
+    </div>
+
+    <script>
+        window.parent.disableIcons();
+        window.parent.disableD20();
+        console.log("Batalha desativada nesta página (rodou no iframe).");
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ambiente = new Audio("/src/sound/cidades/aldeMercado.mp3");
+            ambiente.loop = true;
+            ambiente.volume = 0.2;
+
+            const playPromise = ambiente.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay bloqueado. Clique para ativar o som.");
+                    document.body.addEventListener("click", () => {
+                        ambiente.play();
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
+
+    <!--Toggle caminhos-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const titulo = document.querySelector("#nomeEstacao h3");
+            const botoes = document.querySelectorAll("#nomeEstacao button");
+
+            // Inicia oculto
+            botoes.forEach(btn => btn.style.display = "none");
+
+            titulo.addEventListener("click", () => {
+                const aberto = botoes[0].style.display === "block";
+
+                botoes.forEach(btn => {
+                    btn.style.display = aberto ? "none" : "block";
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Bloqueia zoom via Ctrl + scroll do mouse
+        window.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Bloqueia zoom via Ctrl + "+" ou Ctrl + "-"
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>

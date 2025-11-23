@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG2</title>
+    <link rel="stylesheet" href="/src/css/stylegeral.css">
+
+</head>
+<body>
+    <div class="tela">
+        <div class="containerOperações">
+            <div id="menu">
+                <div class="btnMenu">
+                    <button onclick="carregarFicha()">Ficha</button>
+                    <button onclick="carregarBolsa()">Bolsa</button>
+                    <button onclick="carregarEquip()">Equip.</button>
+                    <a href=""><button>Habilit.</button></a>
+                    <a href=""><button>Magias</button></a>
+                    <a href=""><button>Feitiços</button></a>
+                </div>
+            </div>
+
+            <div class="ficha" style="display: none;">
+                <div class="atributos-base">
+                    <div class="attr"><span>FOR</span> +1</div>
+                    <div class="attr"><span>DES</span> +0</div>
+                    <div class="attr"><span>CON</span> +0</div>
+                    <div class="attr"><span>INT</span> +0</div>
+                    <div class="attr"><span>SAB</span> +0</div>
+                    <div class="attr"><span>CAR</span> +0</div>
+                </div>
+                <div id="atributos">
+                    <h5>HP: <span>100</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>ATAQUE: <span>10</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>DEFESA: <span>10</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>MANA: <span>10</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>INICIATIVA: <span>5</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>SORTE: <span>5</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                    <h5>VONTADE: <span>5</span></h5>
+                    <div class="barra">
+                        <div class="fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div id="dado">
+                    <button id="d20" onclick="rolarD20()"><img src="/src/img/icones/d20.png" alt="Dado D20"></button>
+                    <div id="resultado"></div>
+                </div>
+
+            </div>
+
+            <div class="bolsa-grid" style="display: none;">
+                <h3>Bolsa de Utilitários</h3>
+
+                <div class="grid">
+                    <div class="slot" data-slot="1">
+                        <img src="https://cdn-icons-png.flaticon.com/512/297/297806.png" alt="item"
+                            class="icon icon-original" draggable="true">
+                    </div>
+                    <div class="slot" data-slot="2">
+                        <img src="https://cdn-icons-png.flaticon.com/512/129/129094.png" alt="item"
+                            class="icon icon-original" draggable="true">
+                    </div>
+                    <div class="slot" data-slot="3">
+                        <img src="https://previews.123rf.com/images/nsit0108/nsit01082107/nsit0108210700152/171302069-knight-shield-icon-cartoon-vector-metal-arms-coat-steel-medieval-shield.jpg"
+                            alt="item" class="icon icon-original" draggable="true">
+                    </div>
+                    <div class="slot" data-slot="4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/809/809037.png" alt="item"
+                            class="icon icon-original" draggable="true">
+                    </div>
+                    <div class="slot" data-slot="5"></div>
+                    <div class="slot" data-slot="6"></div>
+                    <div class="slot" data-slot="7"></div>
+                    <div class="slot" data-slot="8"></div>
+                    <div class="slot" data-slot="9"></div>
+                    <div class="slot" data-slot="10"></div>
+                    <div class="slot" data-slot="11"></div>
+                    <div class="slot" data-slot="12"></div>
+                    <div class="slot" data-slot="13"></div>
+                    <div class="slot" data-slot="14"></div>
+                    <div class="slot" data-slot="15"></div>
+                    <div class="slot" data-slot="16"></div>
+                    <div class="slot" data-slot="17"></div>
+                    <div class="slot" data-slot="18"></div>
+                    <div class="slot" data-slot="19"></div>
+                    <div class="slot" data-slot="20"></div>
+                    <div class="slot" data-slot="21"></div>
+                    <div class="slot" data-slot="22"></div>
+                    <div class="slot" data-slot="23"></div>
+                    <div class="slot" data-slot="24"></div>
+                    <div class="slot" data-slot="25"></div>
+                    <div class="slot" data-slot="26"></div>
+                </div>
+
+            </div>
+
+            <div class="container-equip" style="display: none;">
+                <img src="https://media.istockphoto.com/id/1185905243/pt/vetorial/silhouette-human-man-on-white-background.jpg?s=170667a&w=0&k=20&c=epyFBg8wzjuV9PB5aMhH6R6IVLZUQwe2K895wcE0Q6Q="
+                    alt="">
+                <div class="character-wrapper">
+                    <div class="slot-equip elmo">Elmo</div>
+                    <div class="slot-equip armadura">Armadura</div>
+                    <div class="slot-equip cinto">Cinto</div>
+                    <div class="slot-equip calcas">Calças</div>
+                    <div class="slot-equip botas">Botas</div>
+                    <div class="slot-equip arma1">Arma</div>
+                    <div class="slot-equip arma2">Escudo</div>
+                    <div class="slot-equip bolso1">Bolso 1</div>
+                    <div class="slot-equip bolso2">Bolso 2</div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- ÁREA DINÂMICA COM AS CIDADES -->
+        <div id="conteudo">
+            <iframe id="janela"></iframe>
+        </div>
+    </div>
+
+    <!--Layout do jogador-->
+    <img id="layoutPlayer" src="https://i.pinimg.com/originals/d7/2b/5c/d72b5c8772ece2167e6562a4cc195d3d.png" alt="">
+    <div id="textLayPlayer">
+        <h6>Nome: <span id="nomePlayer"></span></h6>
+        <h6>Raça: <span id="racaPlayer"></span></h6>
+        <h6>Profissão: <span id="profPlayer"></span></h6>
+        <h6>Título: <span id="tituPlayer"></span></h6>
+        <h6>Nível: <span id="lvlPlayer">0</span></h6>
+        <!-- Barra de progresso -->
+        <div class="progress-container">
+            <div class="progress-bar" id="expBar"></div>
+        </div>
+    </div>
+
+    <!--Bolsos do jogador-->
+    <div id="Bolsa1" class="bolsaMedieval"></div>
+    <dialog id="Bolsa2" class="bolsaMedieval"></dialog>
+
+    <!--Espada e efeito de corte-->
+    <img id="attackIcon" src="/src/img/icones/attackIcon.png" alt="icone de ataque">
+    <img id="effectSword" src="/src/gif/effects/cutSword.gif" alt="" style="display:none;">
+
+    <!--Escudo-->
+    <img id="defesaIcon" src="/src/img/icones/defesaIcon.png" alt="icone de defesa">
+    <div id="effectEscudo" style="display:none;"></div>
+
+    <!--Chute-->
+    <img id="chuteIcon" src="/src/img/icones/chuteIcon.png" alt="icone de chute">
+
+    <!--Soco-->
+    <img id="socoIcon" class="habilitado" src="/src/img/icones/socoIcon.png" alt="icone de soco">
+
+    <!--Esquiva-->
+    <img id="esquivaIcon" src="/src/img/icones/esquivaIcon.png" alt="icone de esquiva">
+
+    <!--Magia-->
+    <img id="magiaIcon" src="/src/img/icones/magiaIcon.png" alt="icone de magia">
+    <div id="effectMagia" style="display:none;"></div>
+
+    <!--Feitiço-->
+    <img id="feiticoIcon" src="/src/img/icones/feiticoIcon.png" alt="icone de feitiço">
+    <div id="effectFeitico" style="display:none;"></div>
+
+    <script></script>
+
+    <!--Script de bloqueio de zoom-->
+    <script>
+        // Bloqueia zoom via Ctrl + scroll do mouse
+        window.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Bloqueia zoom via Ctrl + "+" ou Ctrl + "-"
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
+
+    <!--JS da secção bolsa-->
+    <script src="../src/js/bolsa.js"></script>
+
+    <!--Batalha-->
+    <script>
+        /* -------------------------
+           Controle de Estado
+           ------------------------- */
+        let jogadaLiberada = true;
+        let movimentoExecutado = false;
+        let dadoLiberado = false;
+        let cooldownMovimento = false;
+        let movimentoSelecionado = null;
+        const COOLDOWN_MS = 400;
+
+        /* -------------------------
+           Seleção de elementos
+           ------------------------- */
+        const attackIcon = document.getElementById('attackIcon');
+        const defesaIcon = document.getElementById('defesaIcon');
+        const chuteIcon = document.getElementById('chuteIcon');
+        const effectSoco = document.getElementById('effectSoco');
+        const socoIcon = document.getElementById('socoIcon');
+        const esquivaIcon = document.getElementById('esquivaIcon');
+
+        const magiaIcon = document.getElementById('magiaIcon');
+        const feiticoIcon = document.getElementById('feiticoIcon');
+
+        const effectSword = document.getElementById('effectSword');
+        const effectEscudo = document.getElementById('effectEscudo');
+        const effectMagia = document.getElementById('effectMagia');
+        const effectFeitico = document.getElementById('effectFeitico');
+
+        const d20 = document.getElementById('d20');
+        const img = d20 ? d20.querySelector('img') : null;
+        const resultado = document.getElementById('resultado');
+
+        /* -------------------------
+           Áudios
+           ------------------------- */
+        const attackEspada = new Audio('/src/sound/icones/attackEspada.mp3');
+        attackEspada.preload = 'auto'; attackEspada.volume = 0.5;
+
+        const impactoEscudo = new Audio('/src/sound/icones/impactoEscudo.mp3');
+        impactoEscudo.preload = 'auto'; impactoEscudo.volume = 0.5;
+
+        const impactoChute = new Audio('/src/sound/icones/impacto_chute.mp3');
+        impactoChute.preload = 'auto'; impactoChute.volume = 0.5;
+
+        const impactoSoco = new Audio('/src/sound/icones/impacto_soco.mp3');
+        impactoSoco.preload = 'auto';
+        impactoSoco.volume = 0.5;
+
+        const esquiva = new Audio('/src/sound/icones/esquiva.mp3');
+        esquiva.preload = 'auto';
+        esquiva.volume = 0.5;
+
+        const somMagia = new Audio('/src/sound/icones/magia.mp3');
+        somMagia.preload = 'auto'; somMagia.volume = 0.5;
+
+        const somFeitico = new Audio('/src/sound/icones/feitico.mp3');
+        somFeitico.preload = 'auto'; somFeitico.volume = 0.5;
+
+        const somDado = new Audio('../src/sound/icones/dados.mp3');
+        somDado.preload = 'auto'; somDado.volume = 0.3;
+
+        /* -------------------------
+           UI Utils
+           ------------------------- */
+
+        const TODOS_ICONS = [
+            attackIcon, defesaIcon, chuteIcon, socoIcon, esquivaIcon,
+            magiaIcon, feiticoIcon
+        ];
+
+        function disableIcons() {
+            jogadaLiberada = false;
+            TODOS_ICONS.forEach(el => {
+                if (!el) return;
+                el.classList.remove('habilitado');
+                el.style.pointerEvents = 'none';
+                el.style.opacity = '0.6';
+            });
+        }
+
+        function enableIcons() {
+            jogadaLiberada = true;
+            movimentoExecutado = false;
+            dadoLiberado = false;
+            movimentoSelecionado = null; // reset
+            TODOS_ICONS.forEach(el => {
+                if (!el) return;
+                el.classList.add('habilitado');
+                el.style.pointerEvents = '';
+                el.style.opacity = '';
+            });
+        }
+
+        function enableD20() {
+            d20.style.pointerEvents = '';
+            d20.style.opacity = '';
+        }
+
+        function disableD20() {
+            d20.style.pointerEvents = 'none';
+            d20.style.opacity = '0.5';
+        }
+
+        /* -------------------------
+           Cooldown
+           ------------------------- */
+        function iniciarCooldown() {
+            cooldownMovimento = true;
+            setTimeout(() => cooldownMovimento = false, COOLDOWN_MS);
+        }
+
+        /* -------------------------
+           D20: rolagem
+           ------------------------- */
+        function rolarD20(callback) {
+            somDado.currentTime = 0;
+            somDado.play().catch(() => { });
+
+            setTimeout(() => {
+                const valor = Math.floor(Math.random() * 20) + 1;
+
+                resultado.innerText = valor;
+
+                // Paleta estratégica
+                resultado.style.color =
+                    valor <= 7 ? 'red' :
+                        valor <= 14 ? 'blue' :
+                            '#FFD700';
+
+                callback(valor); // <-- entrega o valor real
+            }, 1000);
+        }
+
+
+        /* -------------------------
+           Execução após D20 — efeitos só se valor > 7
+           ------------------------- */
+        function executarEfeitoPorResultado(valor) {
+
+            if (valor <= 7) return; // NÃO dispara som/efeito
+
+            switch (movimentoSelecionado) {
+                case 'ataque':
+                    attackEspada.currentTime = 0;
+                    attackEspada.play().catch(() => { });
+                    if (effectSword) {
+                        effectSword.style.display = 'block';
+                        effectSword.src = effectSword.src;
+                        setTimeout(() => effectSword.style.display = 'none', 180);
+                    }
+                    break;
+
+                case 'defesa':
+                    impactoEscudo.currentTime = 0;
+                    impactoEscudo.play().catch(() => { });
+                    if (effectEscudo) {
+                        effectEscudo.style.display = 'block';
+
+                        // entrada (fade-in)
+                        effectEscudo.classList.add('active');
+
+                        // aguarda 1s = tempo da transição de entrada
+                        setTimeout(() => {
+
+                            // inicia saída (fade-out)
+                            effectEscudo.classList.remove('active');
+
+                            // aguarda mais 1s = tempo da transição de saída
+                            setTimeout(() => {
+                                effectEscudo.style.display = 'none';
+                            }, 1000);
+
+                        }, 1000);
+
+                    }
+                    break;
+
+                case 'chute':
+                    impactoChute.currentTime = 0;
+                    impactoChute.play().catch(() => { });
+                    break;
+
+                case 'soco':
+                    impactoSoco.currentTime = 0;
+                    impactoSoco.play().catch(() => { });
+
+                    if (effectSoco) {
+                        effectSoco.style.display = 'block';
+                        effectSoco.src = effectSoco.src;
+                        effectSoco.classList.add('active');
+                        setTimeout(() => {
+                            effectSoco.classList.remove('active');
+                            effectSoco.style.display = 'none';
+                        }, 1000);
+                    }
+                    break;
+
+                case 'esquiva':
+                    esquiva.currentTime = 0;
+                    esquiva.play().catch(() => { });
+                    break;
+
+                case 'magia':
+                    somMagia.currentTime = 0;
+                    somMagia.play().catch(() => { });
+
+                    if (effectMagia) {
+                        effectMagia.style.display = 'block';
+
+                        // entrada (fade-in)
+                        effectMagia.classList.add('active');
+
+                        // aguarda 1s = tempo da transição de entrada
+                        setTimeout(() => {
+
+                            // inicia saída (fade-out)
+                            effectMagia.classList.remove('active');
+
+                            // aguarda mais 1s = tempo da transição de saída
+                            setTimeout(() => {
+                                effectMagia.style.display = 'none';
+                            }, 1000);
+
+                        }, 1000);
+
+                    }
+                    break;
+
+                case 'feitico':
+                    somFeitico.currentTime = 0;
+                    somFeitico.play().catch(() => { });
+                    if (effectFeitico) {
+                        effectFeitico.style.display = 'block';
+
+                        // entrada (fade-in)
+                        effectFeitico.classList.add('active');
+
+                        // aguarda 1s = tempo da transição de entrada
+                        setTimeout(() => {
+
+                            // inicia saída (fade-out)
+                            effectFeitico.classList.remove('active');
+
+                            // aguarda mais 1s = tempo da transição de saída
+                            setTimeout(() => {
+                                effectFeitico.style.display = 'none';
+                            }, 1000);
+
+                        }, 1000);
+
+                    }
+                    break;
+            }
+        }
+
+        /* -------------------------
+           Movimentos
+        ------------------------- */
+
+        function manterSomenteIconeSelecionado(icone) {
+            TODOS_ICONS.forEach(el => {
+                if (!el) return;
+                if (el === icone) {
+                    el.classList.add('habilitado');
+                    el.classList.add('hoverAtivo');
+                    el.style.pointerEvents = 'none'; // o ícone escolhido não deve ser clicável novamente
+                    el.style.opacity = '';
+                } else {
+                    el.classList.remove('habilitado');
+                    el.style.pointerEvents = 'none';
+                    el.style.opacity = '0.6';
+                }
+            });
+        }
+
+
+        function selecionarMovimento(tipo) {
+            if (!jogadaLiberada || cooldownMovimento) return;
+
+            movimentoExecutado = true;
+            dadoLiberado = true;
+            movimentoSelecionado = tipo; // <-- captura qual movimento foi escolhido
+
+            manterSomenteIconeSelecionado(
+                tipo === 'ataque' ? attackIcon :
+                    tipo === 'defesa' ? defesaIcon :
+                        tipo === 'chute' ? chuteIcon :
+                            tipo === 'soco' ? socoIcon :
+                                tipo === 'esquiva' ? esquivaIcon :
+                                    tipo === 'magia' ? magiaIcon :
+                                        feiticoIcon
+            );
+
+            enableD20();
+            iniciarCooldown();
+        }
+
+        function executarAtaque() { selecionarMovimento('ataque'); }
+        function executarDefesa() { selecionarMovimento('defesa'); }
+        function executarChute() { selecionarMovimento('chute'); }
+        function executarSoco() { selecionarMovimento('soco'); }
+        function executarEsquiva() { selecionarMovimento('esquiva'); }
+        function executarMagia() { selecionarMovimento('magia'); }
+        function executarFeitico() { selecionarMovimento('feitico'); }
+
+
+        /* -------------------------
+           Eventos
+           ------------------------- */
+        attackIcon.addEventListener('click', executarAtaque);
+        defesaIcon.addEventListener('click', executarDefesa);
+        chuteIcon.addEventListener('click', executarChute);
+        socoIcon.addEventListener('click', executarSoco);
+        esquivaIcon.addEventListener('click', executarEsquiva);
+        magiaIcon.addEventListener('click', executarMagia);
+        feiticoIcon.addEventListener('click', executarFeitico);
+
+        disableD20();
+
+        /* Evento do D20 */
+        d20.addEventListener('click', () => {
+
+            if (!dadoLiberado) return;
+
+            dadoLiberado = false;
+            disableD20();
+
+            TODOS_ICONS.forEach(el => el?.classList.remove('hoverAtivo'));
+
+            if (img) {
+                img.classList.remove('rotate');
+                void img.offsetWidth;
+                img.classList.add('rotate');
+            }
+
+            // rolagem com callback
+            rolarD20(valor => {
+
+                executarEfeitoPorResultado(valor); // <-- agora valor existe e é real
+
+                enableIcons();
+            });
+        });
+
+        /* -------------------------
+           Inicialização
+           ------------------------- */
+        (function bloquearPorPagina() {
+            const iframe = document.getElementById("janela");
+
+            iframe.addEventListener("load", () => {
+                const urlInterna = iframe.contentWindow.location.href.toLowerCase();
+
+                const paginasBloqueadas = [
+                    "aldepraca.html",
+                    "aldemercado.html",
+                    "aldecoliseuentrada.html"
+                ];
+
+                const bloqueada = paginasBloqueadas.some(p =>
+                    urlInterna.includes(p)
+                );
+
+                if (bloqueada) {
+                    console.log("Batalha desativada pela página interna:", urlInterna);
+                    disableIcons();
+                    disableD20();
+                } else {
+                    console.log("Batalha habilitada na página interna:", urlInterna);
+                    enableIcons();
+                    disableD20();
+                }
+            });
+        })();
+
+    </script>
+
+    <!--Barra de XP-->
+    <script>
+        function atualizarExp(percentual) {
+            document.getElementById("expBar").style.width = percentual + "%";
+        }
+    </script>
+
+    <!--JS da passagem do menu-->
+    <script>
+        const ficha = document.getElementsByClassName("ficha");
+        const bolsa = document.getElementsByClassName("bolsa-grid");
+        const equip = document.getElementsByClassName("container-equip");
+
+        function ocultarTodos() {
+            [ficha, bolsa, equip].forEach(col => {
+                for (let i = 0; i < col.length; i++) col[i].style.display = "none";
+            });
+        }
+
+        function carregarFicha() {
+            ocultarTodos();
+            for (let i = 0; i < ficha.length; i++) ficha[i].style.display = "block";
+            localStorage.setItem("abaSelecionada", "ficha");
+        }
+
+        function carregarBolsa() {
+            ocultarTodos();
+            for (let i = 0; i < bolsa.length; i++) bolsa[i].style.display = "block";
+            localStorage.setItem("abaSelecionada", "bolsa");
+        }
+
+        function carregarEquip() {
+            ocultarTodos();
+            for (let i = 0; i < equip.length; i++) equip[i].style.display = "block";
+            localStorage.setItem("abaSelecionada", "equip");
+        }
+
+        // Persistência da área dinâmica (IFRAME)
+        function carregar(pagina) {
+            const iframe = document.getElementById("janela");
+            iframe.src = pagina;
+            localStorage.setItem("paginaAtual", pagina);
+        }
+
+        // Restauração total
+        function restaurarEstado() {
+
+            // Restaurar aba
+            const ultimaAba = localStorage.getItem("abaSelecionada");
+
+            switch (ultimaAba) {
+                case "bolsa": carregarBolsa(); break;
+                case "equip": carregarEquip(); break;
+                default: carregarFicha();
+            }
+
+            // Restaurar página atual do jogo
+            const paginaSalva = localStorage.getItem("paginaAtual");
+            const iframe = document.getElementById("janela");
+
+            iframe.src = paginaSalva
+                ? paginaSalva
+                : "Cidades/Aldebaram/aldePraca.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", restaurarEstado);
+    </script>
+
+</body>
+</html>

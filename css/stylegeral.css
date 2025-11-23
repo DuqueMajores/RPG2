@@ -1,0 +1,928 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+:root {
+    --couro-base: #6b4a2f;
+    --couro-escuro: #4a2f1a;
+    --couro-luz: #8c6239;
+    --costura: #d8c7a1;
+    --metal: #b2996b;
+}
+
+body {
+    background: url("https://img.freepik.com/fotos-premium/fundo-de-textura-de-papel-grafico-branco_469558-4970.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+/* ----------------------------- */
+
+.tela {
+    display: flex;
+    gap: 5px;
+    min-height: 100vh;
+}
+
+.containerOperações {
+    display: flex;
+    max-height: 100vh;
+}
+
+/* ----------------------------- */
+
+/* Layout */
+
+#layoutPlayer {
+    position: fixed;
+    width: 155px;
+    top: 1%;
+    right: 1%;
+}
+
+#textLayPlayer {
+    position: fixed;
+    top: 4vh;
+    right: 4vw;
+}
+
+/* Bloco comum Bolsas*/
+.bolsaMedieval {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font-size: 10px;
+    color: #1e1208;
+
+    /* Fundo couro com profundidade */
+    background:
+        radial-gradient(circle at 40% 30%, var(--couro-luz) 0%, var(--couro-base) 50%, var(--couro-escuro) 100%);
+    border-radius: 16px;
+
+    /* Textura */
+    background-image:
+        url("https://i.imgur.com/lkSsQrg.png"),
+        radial-gradient(circle at 40% 30%, var(--couro-luz), var(--couro-base));
+    background-blend-mode: multiply;
+    background-size: cover;
+
+    /* Sombreamento premium */
+    box-shadow:
+        inset 0 0 12px rgba(0, 0, 0, 0.55),
+        inset 0 0 4px rgba(255, 255, 255, 0.12),
+        0 4px 10px rgba(0, 0, 0, 0.45);
+
+    /* Borda couro mais rígida */
+    border: 3px solid var(--couro-escuro);
+
+    /* Costura decorativa */
+    outline: 2px dashed var(--costura);
+    outline-offset: -6px;
+
+    /* Wrap interno */
+    overflow: hidden;
+    cursor: grab;
+}
+
+/* Adorno metálico superior */
+.bolsaMedieval::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 28px;
+    height: 14px;
+    background: linear-gradient(to bottom, var(--metal), #7b6747);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Bolsa 1 */
+#Bolsa1 {
+    top: 75vh;
+    left: 37vw;
+    width: 110px;
+    height: 110px;
+}
+
+/* Bolsa 2 */
+#Bolsa2 {
+    top: 78vh;
+    left: 46vw;
+    width: 90px;
+    height: 90px;
+}
+
+/* Contêiner da barra */
+.progress-container {
+    width: 80px;
+    height: 8px;
+    /* altura da barra */
+    background-color: #ccc;
+    /* cor de fundo */
+    border-radius: 4px;
+    margin-top: 4px;
+    /* espaçamento do nível */
+    overflow: hidden;
+}
+
+/* Barra de progresso */
+.progress-bar {
+    height: 100%;
+    width: 78%;
+    /* valor inicial */
+    background-color: #4CAF50;
+    /* cor da barra */
+    transition: width 0.3s ease;
+}
+
+/* ----------------------------- */
+
+/* Ataque Espada */
+
+#attackIcon {
+    position: absolute;
+    top: 450px;
+    left: 1170px;
+    width: 150px;
+
+    z-index: 10;
+    opacity: 0.5;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#attackIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#attackIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #d4af37);
+}
+
+#attackIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #d4af37);
+}
+
+#attackIcon:active {
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 5px #ff5555);
+}
+
+#effectSword {
+    position: absolute;
+    z-index: 11;
+    top: 100px;
+    left: 740px;
+    width: 300px;
+}
+
+/* Escudo */
+
+#defesaIcon {
+    position: absolute;
+    top: 480px;
+    left: 1065px;
+    width: 90px;
+
+    z-index: 10;
+    opacity: 0.5;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#defesaIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#defesaIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #00aaff);
+}
+
+#defesaIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #00aaff);
+}
+
+#effectEscudo {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 11;
+
+    /* estado inicial */
+    opacity: 0;
+
+    /* saída mais lenta */
+    transition: opacity 1s ease-out;
+
+    /* brilho para dentro */
+    box-shadow: inset 0 0 80px 40px rgba(0, 160, 255, 0.85);
+}
+
+#effectEscudo.active {
+    /* entrada rápida */
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+/* Chute */
+
+#chuteIcon {
+    position: absolute;
+    top: 350px;
+    left: 1223px;
+    width: 130px;
+    transform: scaleX(-1);
+    z-index: 11;
+    opacity: 0.5;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#chuteIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+    transform: scaleX(-1);
+}
+
+#chuteIcon.habilitado:hover {
+    filter: drop-shadow(0 0 10px white);
+    transform: scaleX(-1) scale(1.1);
+}
+
+#chuteIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px white);
+    transform: scaleX(-1);
+}
+
+/* Soco */
+
+#socoIcon {
+    position: absolute;
+    top: 420px;
+    left: 1100px;
+    width: 80px;
+    z-index: 12;
+    opacity: 1;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#socoIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#socoIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px red);
+}
+
+#socoIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px red);
+}
+
+/* Esquiva */
+
+#esquivaIcon {
+    position: absolute;
+    top: 370px;
+    left: 1160px;
+    width: 85px;
+    z-index: 12;
+    opacity: 1;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#esquivaIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#esquivaIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px violet);
+}
+
+#esquivaIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px violet);
+}
+
+/* Magia */
+
+#magiaIcon {
+    position: absolute;
+    top: 520px;
+    left: 960px;
+    width: 85px;
+    z-index: 12;
+    opacity: 1;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#magiaIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#magiaIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px orange);
+}
+
+#magiaIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px orange);
+}
+
+#effectMagia {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 15;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+    box-shadow: inset 0 0 80px 40px #d4af37;
+    opacity: 0;
+    transition: opacity .8s ease-out;
+}
+
+#effectMagia.active {
+    opacity: 1;
+    transition: opacity .3s ease-in;
+}
+
+/* Feitiço */
+
+#feiticoIcon {
+    position: absolute;
+    top: 535px;
+    left: 900px;
+    width: 55px;
+    z-index: 12;
+    opacity: 1;
+    cursor: default;
+    transition: 0.2s ease-in-out;
+}
+
+#feiticoIcon.habilitado {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#feiticoIcon.habilitado:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px purple);
+}
+
+#feiticoIcon.hoverAtivo {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px purple);
+}
+
+#effectFeitico {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 16;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+    box-shadow: inset 0 0 80px 40px violet;
+    opacity: 0;
+    transition: opacity .8s ease-out;
+}
+
+#effectFeitico.active {
+    opacity: 1;
+    transition: opacity .3s ease-in;
+}
+
+
+/* ----------------------------- */
+
+/* Menu */
+
+.btnMenu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    height: 575px;
+    max-height: 100vh;
+}
+
+.btnMenu button {
+    width: 90px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: gray;
+    color: #fff;
+    transition: all .25s ease-in-out;
+}
+
+.btnMenu button:hover {
+    background: rgb(11, 90, 236);
+}
+
+.btnMenu button:active {
+    background: #0f172a;
+}
+
+@media (max-width: 600px) {
+    .btnMenu {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .btnMenu button {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+#menu {
+    background: rgba(187, 187, 187, 0.171);
+    backdrop-filter: blur(6px);
+    padding: 12px 20px;
+    display: flex;
+    gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+}
+
+.btnMenu {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btnMenu button {
+    width: 110px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+
+    background-color: #f1f1f1;
+    color: black;
+
+    cursor: pointer;
+    transition: transform .2s ease, background .25s ease, box-shadow .25s ease;
+}
+
+.btnMenu button:hover {
+    background: linear-gradient(135deg, #0077ff, #77b6ff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    color: white;
+}
+
+.btnMenu button:active,
+.btnMenu button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Ficha */
+
+.ficha {
+    max-height: 100vh;
+    width: 330px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ficha h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.atributos-base {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 15px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    border: 1px solid #d0d0d0;
+}
+
+.atributos-base .attr {
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.atributos-base .attr:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.288);
+}
+
+.atributos-base .attr span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    letter-spacing: 1px;
+}
+
+#atributos {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#atributos h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+#atributos span {
+    font-weight: 700;
+}
+
+.barra {
+    width: 100%;
+    height: 10px;
+    border-radius: 6px;
+    background: #ddd;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #2e7d32);
+    transition: width 0.4s ease;
+}
+
+/* D20 */
+#dado {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    background-image: url('https://png.pngtree.com/background/20250103/original/pngtree-textured-crumpled-paper-background-with-copy-space-isolated-on-a-white-picture-image_13468466.jpg');
+    background-position: center;
+    background-size: cover;
+    border: 2px solid #c9a86a;
+    border-radius: 6px;
+    box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.45),
+        inset 0 0 8px rgba(0, 0, 0, 0.35);
+    outline: 1px groove #a88343;
+    width: 285px;
+    height: 55px;
+    margin-top: 12px;
+    /* postura visual mais estratégica */
+    filter: contrast(1.05) brightness(0.96);
+}
+#resultado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 45px;
+    margin-left: 100px;
+
+    font-size: 30px;
+    font-weight: 700;
+    color: #f0d9a0;
+    text-shadow: 0 0 8px #ffffff, 1px 1px 0 #2b1b0e;
+    font-family: "Cinzel", serif;
+    letter-spacing: 2px;
+
+    background-color: #2e7d32;
+    border: 2px solid #c9a86a;
+    border-radius: 6px;
+
+    box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.45),
+        inset 0 0 8px rgba(0, 0, 0, 0.35);
+
+    outline: 1px groove #a88343;
+}
+#d20 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background: transparent;
+    transition: 0.2s ease-in-out;
+}
+#d20:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px blue);
+}
+#d20 img {
+    width: 45px;
+    transition: transform 0.6s ease;
+}
+.rotate {
+    animation: spin 1s cubic-bezier(.25, .1, .25, 1);
+}
+@keyframes spin {
+    0%   { transform: translateX(0px) rotate(0deg); }
+    2%   { transform: translateX(1.8px) rotate(7.2deg); }
+    4%   { transform: translateX(3.6px) rotate(14.4deg); }
+    6%   { transform: translateX(5.4px) rotate(21.6deg); }
+    8%   { transform: translateX(7.2px) rotate(28.8deg); }
+    10%  { transform: translateX(9px) rotate(36deg); }
+    12%  { transform: translateX(10.8px) rotate(43.2deg); }
+    14%  { transform: translateX(12.6px) rotate(50.4deg); }
+    16%  { transform: translateX(14.4px) rotate(57.6deg); }
+    18%  { transform: translateX(16.2px) rotate(64.8deg); }
+    20%  { transform: translateX(18px) rotate(72deg); }
+    22%  { transform: translateX(19.8px) rotate(79.2deg); }
+    24%  { transform: translateX(21.6px) rotate(86.4deg); }
+    26%  { transform: translateX(23.4px) rotate(93.6deg); }
+    28%  { transform: translateX(25.2px) rotate(100.8deg); }
+    30%  { transform: translateX(27px) rotate(108deg); }
+    32%  { transform: translateX(28.8px) rotate(115.2deg); }
+    34%  { transform: translateX(30.6px) rotate(122.4deg); }
+    36%  { transform: translateX(32.4px) rotate(129.6deg); }
+    38%  { transform: translateX(34.2px) rotate(136.8deg); }
+    40%  { transform: translateX(36px) rotate(144deg); }
+    42%  { transform: translateX(37.8px) rotate(151.2deg); }
+    44%  { transform: translateX(39.6px) rotate(158.4deg); }
+    46%  { transform: translateX(41.4px) rotate(165.6deg); }
+    48%  { transform: translateX(43.2px) rotate(172.8deg); }
+    50%  { transform: translateX(45px) rotate(180deg); }
+    52%  { transform: translateX(46.8px) rotate(187.2deg); }
+    54%  { transform: translateX(48.6px) rotate(194.4deg); }
+    56%  { transform: translateX(50.4px) rotate(201.6deg); }
+    58%  { transform: translateX(52.2px) rotate(208.8deg); }
+    60%  { transform: translateX(54px) rotate(216deg); }
+    62%  { transform: translateX(55.8px) rotate(223.2deg); }
+    64%  { transform: translateX(57.6px) rotate(230.4deg); }
+    66%  { transform: translateX(59.4px) rotate(237.6deg); }
+    68%  { transform: translateX(61.2px) rotate(244.8deg); }
+    70%  { transform: translateX(63px) rotate(252deg); }
+    72%  { transform: translateX(64.8px) rotate(259.2deg); }
+    74%  { transform: translateX(66.6px) rotate(266.4deg); }
+    76%  { transform: translateX(68.4px) rotate(273.6deg); }
+    78%  { transform: translateX(70.2px) rotate(280.8deg); }
+    80%  { transform: translateX(72px) rotate(288deg); }
+    82%  { transform: translateX(73.8px) rotate(295.2deg); }
+    84%  { transform: translateX(75.6px) rotate(302.4deg); }
+    86%  { transform: translateX(77.4px) rotate(309.6deg); }
+    88%  { transform: translateX(79.2px) rotate(316.8deg); }
+    90%  { transform: translateX(81px) rotate(324deg); }
+    92%  { transform: translateX(82.8px) rotate(331.2deg); }
+    94%  { transform: translateX(84.6px) rotate(338.4deg); }
+    96%  { transform: translateX(86.4px) rotate(345.6deg); }
+    98%  { transform: translateX(88.2px) rotate(352.8deg); }
+    100% { transform: translateX(90px) rotate(360deg); }
+}
+
+/* ----------------------------- */
+
+/* Área dinâmica */
+#conteudo {
+    flex: 1;
+    background: #111;
+    width: 1200px;
+    margin-left: -5px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Bolsa */
+
+.bolsa-grid {
+    max-height: 690px;
+    width: 330px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: scroll;
+}
+
+.bolsa-grid h3 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+}
+
+.slot:hover {
+    border-color: #999;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    width: 40px;
+    /* remover cursor: grab; */
+    cursor: default;
+}
+
+
+/* Equipamento */
+
+.container-equip {
+    max-height: 100vh;
+    width: 330px;
+    padding: 100px;
+    border: 1px solid #ccc;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    align-items: center;
+}
+
+.container-equip img {
+    position: absolute;
+    width: 230px;
+    margin-top: -50px;
+    margin-left: -65px;
+}
+
+.character-wrapper {
+    position: relative;
+    width: 200px;
+    height: 500px;
+    background-image: url();
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slot-equip {
+    position: absolute;
+    border: 1px dashed #888;
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Posicionamento dos slots */
+.elmo {
+    top: 10px;
+    left: 25%;
+    transform: translateX(-50%);
+    width: 65px;
+    height: 65px;
+    margin-top: -50px;
+}
+
+.armadura {
+    top: 75px;
+    left: 26%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    margin-top: -20px;
+}
+
+.cinto {
+    top: 190px;
+    left: 26%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    margin-top: -10px;
+}
+
+.calcas {
+    top: 270px;
+    left: 25%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 90px;
+    margin-left: 5px;
+}
+
+.botas {
+    bottom: 20px;
+    left: 28%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+}
+
+.arma1 {
+    top: 160px;
+    left: -30%;
+    width: 50px;
+    height: 50px;
+    margin-top: 60px;
+}
+
+.arma2 {
+    top: 160px;
+    left: -20%;
+    width: 50px;
+    height: 50px;
+    margin-top: 60px;
+    margin-left: 155px;
+}
+
+.bolso1 {
+    left: -70px;
+    width: 50px;
+    height: 50px;
+}
+
+.bolso2 {
+    left: 140px;
+    width: 50px;
+    height: 50px;
+}

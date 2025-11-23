@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+#nomeEstacao {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: fit-content;
+    padding: 8px;
+}
+
+#nomeEstacao h3 {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 12px 20px;
+    font-family: "UnifrakturMaguntia", "Cinzel", serif;
+    font-size: 17px; 
+    line-height: 1;
+    color: #26180a;
+    cursor: pointer;
+    user-select: none;
+    background:
+        linear-gradient(180deg, rgba(255, 245, 220, 0.98) 0%, rgba(242, 222, 189, 0.95) 40%, rgba(230, 200, 150, 0.9) 100%);
+    border-radius: 8px;
+    border: 2px solid rgba(40, 30, 18, 0.6);
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.65),
+        inset 0 2px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -6px 14px rgba(0, 0, 0, 0.18);
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.15),
+        0 3px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.02em;
+    transform: rotate(-0.5deg);
+    border-image: linear-gradient(90deg, rgba(60, 40, 18, 0.9), rgba(150, 110, 60, 0.9)) 1;
+}
+
+.conteudo {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-madeira {
+    padding: 10px 20px;      
+    font-family: "Cinzel", serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #f7e9c9;
+
+    background: linear-gradient(135deg, #5a3a19 0%, #3e260f 45%, #2a1a0c 100%);
+    border: 2px solid #c7a067;
+    border-radius: 8px;
+
+    box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.55),
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        0 0 6px rgba(198, 150, 66, 0.25);
+
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+.btn-madeira:hover {
+    background: linear-gradient(135deg, #6a4824 0%, #4a3116 40%, #301e0e 100%);
+    box-shadow:
+        inset 0 0 12px rgba(0, 0, 0, 0.55),
+        0 5px 10px rgba(0, 0, 0, 0.65),
+        0 0 9px rgba(206, 158, 72, 0.5);
+    transform: translateY(-3px);
+}
+.btn-madeira:active {
+    transform: scale(0.97);
+    box-shadow:
+        inset 0 0 14px rgba(0, 0, 0, 0.7),
+        0 2px 5px rgba(0, 0, 0, 0.35);
+}
+
+/*-----------------------------------*/
+
+/* NPCS */
+
+#aldeGuardaUmColiseu {
+    width: 200px;
+    height: 300px;
+    margin-left: 100px;
+    background-color: #c7a067;
+    border-radius: 50%;
+}
